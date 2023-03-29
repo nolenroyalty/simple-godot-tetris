@@ -6,5 +6,5 @@ them so I haven't bothered to go back and reorganize things, which means the rep
 so I'm sure you'll forgive me for that.
 
 Here's a quick demo:
-https://user-images.githubusercontent.com/1676311/228663606-4a427f17-0742-4b5a-bb50-f9aaf40a44cc.mp4
+![](https://user-images.githubusercontent.com/1676311/228663606-4a427f17-0742-4b5a-bb50-f9aaf40a44cc.mp4)
 
