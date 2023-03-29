@@ -161,6 +161,18 @@ func reset_tickdown_timer(amount):
 		tickdown_timer.start(amount)
 		tickdown_timer.set_wait_time(tickdown_timer_amount)
 
+# There are a few things that this function should do but currently doesn't.
+
+# Maybe most importantly, if a piece is added to the landscape because you've pressed the "down" key
+# and we've spawned a new piece, we probably shouldn't immediately start moving that piece down the board.
+# The fact that we do this feels pretty bad when the landscape has made it to the top of the screen, as it
+# can cause you to inadvertently drop more pieces into the landscape quickly.
+
+# A harder to solve problem is that piece movement still doesn't feel quite right.  Some of this is because
+# I think we should move a piece more quickly the longer you hold down the left or right arrow keys.  But there
+# are also times where it feels like a piece continues to move after you've let go of the key.  I'm not actually
+# totally sure *why* it feels like that and fixing it would probably require some experimentation.
+
 func _process(_delta):
 	var proposed_x = current_x
 	var proposed_y = current_y
@@ -200,8 +212,12 @@ func _process(_delta):
 			set_piece_position(proposed_x, proposed_y)
 			performed_an_action = true
 		elif down_pressed_so_we_can_add_to_landscape:
-			add_to_landscape()
-			spawn_current_piece()
+			# If y is valid but x is not, we've moved *sideways* into the landscape not down and we should
+			# not add the piece to the landscape.
+			var y_is_valid_x_is_invalid = verify_proposed_coordinates(current_x, proposed_y, current_piece.current_positions())
+			if not y_is_valid_x_is_invalid:
+				add_to_landscape()
+				spawn_current_piece()
 	
 	if performed_an_action:
 		reset_tickdown_timer(0.2)
