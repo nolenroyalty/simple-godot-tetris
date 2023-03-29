@@ -60,59 +60,69 @@ z_index = -5
 texture = ExtResource( 3 )
 centered = false
 
-[node name="NextPiece" parent="." instance=ExtResource( 4 )]
-position = Vector2( 4, 680 )
-
-[node name="Label" parent="NextPiece" index="0"]
-custom_fonts/font = SubResource( 3 )
-text = "NEXT PIECE"
-
-[node name="HeldPiece" parent="." instance=ExtResource( 4 )]
-position = Vector2( 150, 680 )
-
-[node name="Label" parent="HeldPiece" index="0"]
-custom_fonts/font = SubResource( 5 )
-text = "HELD PIECE"
-
 [node name="ShakeCamera" parent="." instance=ExtResource( 7 )]
 offset = Vector2( -8, 0 )
 anchor_mode = 0
 current = true
 
-[node name="ScoreAndLevel" type="Control" parent="."]
-margin_left = 310.0
-margin_top = 691.0
-margin_right = 441.0
-margin_bottom = 791.0
+[node name="BottomDisplay" type="GridContainer" parent="."]
+margin_left = 15.0
+margin_top = 678.0
+margin_right = 384.0
+margin_bottom = 790.0
+custom_constants/hseparation = 150
+columns = 3
 
-[node name="ScoreHolder" type="Node2D" parent="ScoreAndLevel"]
+[node name="NextPieceControl" type="Control" parent="BottomDisplay"]
+
+[node name="NextPiece" parent="BottomDisplay/NextPieceControl" instance=ExtResource( 4 )]
+
+[node name="Label" parent="BottomDisplay/NextPieceControl/NextPiece" index="0"]
+custom_fonts/font = SubResource( 3 )
+text = "NEXT PIECE"
+
+[node name="HeldPieceControl" type="Control" parent="BottomDisplay"]
+margin_left = 150.0
+margin_right = 150.0
+
+[node name="HeldPiece" parent="BottomDisplay/HeldPieceControl" instance=ExtResource( 4 )]
+
+[node name="Label" parent="BottomDisplay/HeldPieceControl/HeldPiece" index="0"]
+custom_fonts/font = SubResource( 5 )
+text = "HELD PIECE"
+
+[node name="ScoreAndLevel" type="Control" parent="BottomDisplay"]
+margin_left = 300.0
+margin_right = 300.0
+
+[node name="ScoreHolder" type="Node2D" parent="BottomDisplay/ScoreAndLevel"]
 position = Vector2( 0, 20 )
 
-[node name="ScoreLabel" type="Label" parent="ScoreAndLevel/ScoreHolder"]
+[node name="ScoreLabel" type="Label" parent="BottomDisplay/ScoreAndLevel/ScoreHolder"]
 margin_right = 87.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 4 )
 text = "Score: 0"
 script = ExtResource( 9 )
 
-[node name="LevelIndicator" type="Node2D" parent="ScoreAndLevel"]
+[node name="LevelIndicator" type="Node2D" parent="BottomDisplay/ScoreAndLevel"]
 position = Vector2( 0, 50 )
 
-[node name="LevelLabel" type="Label" parent="ScoreAndLevel/LevelIndicator"]
+[node name="LevelLabel" type="Label" parent="BottomDisplay/ScoreAndLevel/LevelIndicator"]
 margin_right = 52.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 6 )
 text = "Level: 1"
 script = ExtResource( 10 )
 
-[connection signal="chose_next_piece" from="TetrisBoard" to="NextPiece" method="display_piece"]
+[connection signal="chose_next_piece" from="TetrisBoard" to="BottomDisplay/NextPieceControl/NextPiece" method="display_piece"]
 [connection signal="dropped" from="TetrisBoard" to="ShakeCamera" method="_on_TetrisBoard_dropped"]
-[connection signal="held_piece" from="TetrisBoard" to="HeldPiece" method="display_piece"]
-[connection signal="levelup" from="TetrisBoard" to="ScoreAndLevel/LevelIndicator/LevelLabel" method="_on_TetrisBoard_levelup"]
+[connection signal="held_piece" from="TetrisBoard" to="BottomDisplay/HeldPieceControl/HeldPiece" method="display_piece"]
+[connection signal="levelup" from="TetrisBoard" to="BottomDisplay/ScoreAndLevel/LevelIndicator/LevelLabel" method="_on_TetrisBoard_levelup"]
 [connection signal="lost_game" from="TetrisBoard" to="." method="_on_TetrisBoard_lost_game"]
 [connection signal="placed" from="TetrisBoard" to="ShakeCamera" method="_on_TetrisBoard_placed"]
 [connection signal="rows_cleared" from="TetrisBoard" to="ShakeCamera" method="_on_TetrisBoard_rows_cleared"]
-[connection signal="rows_cleared" from="TetrisBoard" to="ScoreAndLevel/ScoreHolder/ScoreLabel" method="increment_rows_cleared"]
+[connection signal="rows_cleared" from="TetrisBoard" to="BottomDisplay/ScoreAndLevel/ScoreHolder/ScoreLabel" method="increment_rows_cleared"]
 
-[editable path="NextPiece"]
-[editable path="HeldPiece"]
+[editable path="BottomDisplay/NextPieceControl/NextPiece"]
+[editable path="BottomDisplay/HeldPieceControl/HeldPiece"]
