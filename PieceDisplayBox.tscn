@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Images/Board/BG_1.png" type="Texture" id=1]
+[ext_resource path="res://PieceDisplayBox.gd" type="Script" id=2]
+
+[node name="PieceDisplayBox" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 139.0
+margin_bottom = 17.0
+text = "TEXT HERE"
+align = 1
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 0, 15 )
+scale = Vector2( 2.17188, 1.32813 )
+z_index = -1
+texture = ExtResource( 1 )
+centered = false
