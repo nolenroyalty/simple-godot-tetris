@@ -54,8 +54,8 @@ const Z_POSITIONS = [
 	[[0, 0], [1, 0], [1, -1], [0, 1]] # Vertical
 ]
 
-func positions_for_shape(shape):
-	match shape:
+func positions_for_shape(s):
+	match s:
 		SHAPES.I: return I_POSITIONS
 		SHAPES.O: return O_POSITIONS
 		SHAPES.L: return L_POSITIONS
@@ -64,8 +64,8 @@ func positions_for_shape(shape):
 		SHAPES.S: return S_POSITIONS
 		SHAPES.Z: return Z_POSITIONS
 
-func color_for_shape(shape):
-	match shape:
+func color_for_shape(s):
+	match s:
 		SHAPES.I: return Constants.COLOR.LIGHTBLUE
 		SHAPES.O: return Constants.COLOR.YELLOW
 		SHAPES.L: return Constants.COLOR.ORANGE

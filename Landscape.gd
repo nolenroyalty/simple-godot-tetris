@@ -12,9 +12,6 @@ func init_points():
 			row.append(null)
 		points.append(row)
 
-func maybe_signal_full_rows(impacted_rows):
-	var full_rows = []
-
 func add_to_landscape(new_points, color):
 	var impacted_rows = {}
 	var full_rows = []
